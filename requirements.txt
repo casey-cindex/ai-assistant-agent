@@ -1,0 +1,8 @@
+openai
+requests
+beautifulsoup4
+PyPDF2
+newspaper3k
+lxml
+jieba
+googlesearch-python
