@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐谷儿 - 一站式生鲜团批供应链服务商</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-dark: #111827;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo i {
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cta-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%236b7280" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .supply-chain-diagram {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-color);
+        }
+
+        .diagram-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .step-content h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Core Services Section */
+        .services {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        /* Target Markets Section */
+        .target-markets {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .markets-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .market-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .market-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .market-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        .market-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .market-card p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Technology Platform Section */
+        .technology {
+            padding: 6rem 0;
+            background: var(--bg-dark);
+            color: white;
+        }
+
+        .tech-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .tech-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-content p {
+            font-size: 1.125rem;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .tech-features {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .tech-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tech-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .tech-visual {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .tech-stat {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .tech-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .tech-stat-label {
+            font-size: 0.875rem;
+            color: #d1d5db;
+            margin-top: 0.5rem;
+        }
+
+        /* Advantages Section */
+        .advantages {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .advantages-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .advantage-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .advantage-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .advantage-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .advantage-content p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .tech-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .advantages-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-seedling"></i>
+                乐谷儿
+            </div>
+            <nav class="nav-menu">
+                <a href="#home">首页</a>
+                <a href="#services">核心服务</a>
+                <a href="#markets">目标市场</a>
+                <a href="#technology">数智平台</a>
+                <a href="#advantages">核心优势</a>
+                <a href="#contact">联系我们</a>
+            </nav>
+            <a href="#contact" class="cta-button">免费咨询</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>一站式生鲜团批供应链服务商</h1>
+                <p class="subtitle">
+                    专注产地直采、标准化质控、全程冷链、数智化平台，为商超、餐饮、团长与社区团购提供专业的生鲜供应链解决方案
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">合作供应商</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">服务客户</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99.5%</span>
+                        <span class="stat-label">准时交付率</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">
+                        <i class="fas fa-phone"></i>
+                        立即咨询
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        <i class="fas fa-play"></i>
+                        了解服务
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="supply-chain-diagram">
+                    <div class="diagram-flow">
+                        <div class="flow-step">
+                            <div class="step-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>产地直采</h3>
+                                <p>源头直采，品质保证</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>标准化质控</h3>
+                                <p>严格质检，全程把控</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-icon">
+                                <i class="fas fa-snowflake"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>全程冷链</h3>
+                                <p>温控运输，新鲜到达</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="step-content">
+                                <h3>数智化平台</h3>
+                                <p>智能管理，高效协同</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Services -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2 class="section-title">核心服务体系</h2>
+            <p class="section-subtitle">
+                四大核心服务支撑，构建完整的生鲜供应链生态系统
+            </p>
+        </div>
+
+        <div class="services-container">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>产地直采</h3>
+                <p>深入全国优质产地，建立稳定的供应商网络，确保源头品质和价格优势。</p>
+                <ul class="service-features">
+                    <li>全国300+优质产地覆盖</li>
+                    <li>专业采购团队现场把控</li>
+                    <li>季节性产品供应保障</li>
+                    <li>价格波动风险管控</li>
+                </ul>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3>标准化质控</h3>
+                <p>建立严格的质量控制体系，从产地到终端全程质量监控，确保食品安全。</p>
+                <ul class="service-features">
+                    <li>ISO质量认证体系</li>
+                    <li>多道质检工序把关</li>
+                    <li>产品溯源体系建设</li>
+                    <li>第三方检测合作</li>
+                </ul>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <h3>全程冷链</h3>
+                <p>完善的冷链仓储和运输网络，确保生鲜产品在最佳温度下储存和配送。</p>
+                <ul class="service-features">
+                    <li>专业冷链仓储设施</li>
+                    <li>温控运输车队</li>
+                    <li>实时温度监控系统</li>
+                    <li>最后一公里冷链配送</li>
+                </ul>
+            </div>
+
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>数智化平台</h3>
+                <p>自主研发的数字化管理平台，实现供应链全流程可视化管理和智能化调度。</p>
+                <ul class="service-features">
+                    <li>智能订单管理系统</li>
+                    <li>库存自动补货算法</li>
+                    <li>数据分析决策支持</li>
+                    <li>API接口无缝对接</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Markets -->
+    <section class="target-markets" id="markets">
+        <div class="section-header">
+            <h2 class="section-title">服务市场</h2>
+            <p class="section-subtitle">
+                专业服务四大细分市场，提供定制化解决方案
+            </p>
+        </div>
+
+        <div class="markets-container">
+            <div class="market-card animate-on-scroll">
+                <div class="market-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>商超零售</h3>
+                <p>为大型超市、便利店等零售商提供丰富的生鲜产品和高效的配送服务，助力零售业务增长。</p>
+            </div>
+
+            <div class="market-card animate-on-scroll">
+                <div class="market-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h3>餐饮企业</h3>
+                <p>服务各类餐饮企业，从食材采购到配送全链条服务，保障餐厅稳定经营和食品安全。</p>
+            </div>
+
+            <div class="market-card animate-on-scroll">
+                <div class="market-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>团长经济</h3>
+                <p>赋能社区团长，提供优质货源和专业服务，帮助团长提升服务质量和盈利能力。</p>
+            </div>
+
+            <div class="market-card animate-on-scroll">
+                <div class="market-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>社区团购</h3>
+                <p>为社区团购平台提供稳定货源和配送服务，满足社区居民日常生鲜采购需求。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Platform -->
+    <section class="technology" id="technology">
+        <div class="tech-container">
+            <div class="tech-content">
+                <h2>数智化管理平台</h2>
+                <p>
+                    运用先进的数字化技术，构建智能化供应链管理平台，实现全流程数字化管控，提升运营效率和服务质量。
+                </p>
+
+                <div class="tech-features">
+                    <div class="tech-feature">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3>智能数据分析</h3>
+                            <p>大数据驱动的需求预测和库存优化</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-feature">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <div>
+                            <h3>智能配送调度</h3>
+                            <p>AI算法优化配送路径和时间安排</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-feature">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div>
+                            <h3>全程可视化</h3>
+                            <p>实时追踪订单状态和物流信息</p>
+                        </div>
+                    </div>
+
+                    <div class="tech-feature">
+                        <div class="tech-feature-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div>
+                            <h3>系统无缝对接</h3>
+                            <p>提供API接口，快速集成客户系统</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tech-visual">
+                <div class="tech-stat">
+                    <span class="tech-stat-number">99.9%</span>
+                    <span class="tech-stat-label">系统稳定性</span>
+                </div>
+                <div class="tech-stat">
+                    <span class="tech-stat-number">10ms</span>
+                    <span class="tech-stat-label">响应时间</span>
+                </div>
+                <div class="tech-stat">
+                    <span class="tech-stat-number">24/7</span>
+                    <span class="tech-stat-label">技术支持</span>
+                </div>
+                <div class="tech-stat">
+                    <span class="tech-stat-number">100+</span>
+                    <span class="tech-stat-label">API接口</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages -->
+    <section class="advantages" id="advantages">
+        <div class="advantages-container">
+            <div class="section-header">
+                <h2 class="section-title">核心优势</h2>
+                <p class="section-subtitle">
+                    多年行业深耕，建立了独特的竞争优势和服务壁垒
+                </p>
+            </div>
+
+            <div class="advantages-grid">
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>供应网络优势</h3>
+                        <p>覆盖全国300+优质产地，与1000+供应商建立长期合作关系，确保货源稳定和价格优势。</p>
+                    </div>
+                </div>
+
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>运营效率优势</h3>
+                        <p>标准化作业流程，数字化管理系统，实现高效运营和成本控制，提升客户满意度。</p>
+                    </div>
+                </div>
+
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>品质保障优势</h3>
+                        <p>严格的质量管控体系，专业的检测设备，完善的追溯机制，确保食品安全和品质。</p>
+                    </div>
+                </div>
+
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-users-cog"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>专业团队优势</h3>
+                        <p>拥有专业的采购、质控、物流、技术团队，丰富的行业经验和专业的服务能力。</p>
+                    </div>
+                </div>
+
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>规模化优势</h3>
+                        <p>大规模采购降低成本，规模化运营提升效率，为客户提供更具竞争力的价格和服务。</p>
+                    </div>
+                </div>
+
+                <div class="advantage-item animate-on-scroll">
+                    <div class="advantage-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="advantage-content">
+                        <h3>服务定制优势</h3>
+                        <p>深度理解不同行业需求，提供个性化定制服务，助力客户业务发展和竞争力提升。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <h2 class="section-title">联系我们</h2>
+            <p class="section-subtitle">
+                专业团队为您提供咨询服务，期待与您的合作
+            </p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>联系信息</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <strong>公司地址</strong><br>
+                        安徽省合肥市肥东县撮镇镇新世界路北侧五号房
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <strong>联系电话</strong><br>
+                        400-123-4567 / 0551-12345678
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <strong>邮箱地址</strong><br>
+                        business@leguer.com
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <strong>服务时间</strong><br>
+                        7×24小时专业服务
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>业务咨询</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="company">公司名称 *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact">联系人 *</label>
+                        <input type="text" id="contact" name="contact" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">联系电话 *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-type">业务类型</label>
+                        <select id="business-type" name="business-type">
+                            <option value="">请选择业务类型</option>
+                            <option value="retail">商超零售</option>
+                            <option value="restaurant">餐饮企业</option>
+                            <option value="community">社区团购</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">需求描述</label>
+                        <textarea id="message" name="message" rows="4" placeholder="请描述您的具体需求..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        提交咨询
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>乐谷儿</h3>
+                    <p>专业的一站式生鲜团批供应链服务商，致力于为客户提供优质的产品和专业的服务。</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>核心服务</h3>
+                    <p><a href="#services">产地直采</a></p>
+                    <p><a href="#services">标准化质控</a></p>
+                    <p><a href="#services">全程冷链</a></p>
+                    <p><a href="#services">数智化平台</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>服务市场</h3>
+                    <p><a href="#markets">商超零售</a></p>
+                    <p><a href="#markets">餐饮企业</a></p>
+                    <p><a href="#markets">团长经济</a></p>
+                    <p><a href="#markets">社区团购</a></p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>联系方式</h3>
+                    <p>电话：400-123-4567</p>
+                    <p>邮箱：business@leguer.com</p>
+                    <p>地址：安徽省合肥市肥东县</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2023 安徽乐谷儿供应链有限公司 版权所有 | 统一社会信用代码：91340122MA8Q2RPU4T</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Scroll animation observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> 提交成功';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    this.reset();
+                    alert('感谢您的咨询，我们将在24小时内与您联系！');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.service-card, .market-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-4px)';
+            });
+        });
+    </script>
+</body>
+</html>
