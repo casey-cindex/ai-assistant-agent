@@ -10,6 +10,11 @@
             --primary-color: #00b4d8;
             --secondary-color: #0077b6;
             --accent-color: #00f5ff;
+            --orange-accent: #ff6b35;
+            --green-accent: #4ecdc4;
+            --purple-accent: #6c5ce7;
+            --pink-accent: #fd79a8;
+            --yellow-accent: #fdcb6e;
             --dark-bg: #0a0e27;
             --light-bg: #f8fafc;
             --text-dark: #1e293b;
@@ -17,6 +22,8 @@
             --success-color: #10b981;
             --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --tech-gradient: linear-gradient(45deg, #0f172a, #1e293b, #334155);
+            --hero-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --card-gradient: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
         }
 
         * {
@@ -103,7 +110,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: var(--tech-gradient);
+            background: var(--hero-gradient);
             display: flex;
             align-items: center;
             position: relative;
@@ -117,13 +124,61 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300f5ff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%2300f5ff" stroke-width="0.5" opacity="0.2"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
             animation: gridMove 20s linear infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,245,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: sparkle 30s linear infinite;
         }
 
         @keyframes gridMove {
             0% { transform: translate(0, 0); }
             100% { transform: translate(10px, 10px); }
+        }
+
+        @keyframes sparkle {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(360deg) scale(1.1); }
+        }
+
+        /* 添加浮动粒子效果 */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes float-particle {
+            0%, 100% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
         }
 
         .hero-content {
@@ -316,7 +371,6 @@
         .service-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -324,6 +378,50 @@
             margin-bottom: 1.5rem;
             font-size: 2rem;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:nth-child(1) .service-icon {
+            background: linear-gradient(45deg, var(--orange-accent), var(--yellow-accent));
+        }
+        .service-card:nth-child(2) .service-icon {
+            background: linear-gradient(45deg, var(--green-accent), var(--primary-color));
+        }
+        .service-card:nth-child(3) .service-icon {
+            background: linear-gradient(45deg, var(--purple-accent), var(--pink-accent));
+        }
+        .service-card:nth-child(4) .service-icon {
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        }
+        .service-card:nth-child(5) .service-icon {
+            background: linear-gradient(45deg, var(--success-color), var(--green-accent));
+        }
+        .service-card:nth-child(6) .service-icon {
+            background: linear-gradient(45deg, var(--pink-accent), var(--orange-accent));
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover .service-icon::before {
+            opacity: 1;
+            animation: shimmer 1.5s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .service-card h3 {
@@ -335,6 +433,226 @@
         .service-card p {
             color: var(--text-light);
             line-height: 1.6;
+        }
+
+        /* 产品展示轮播 */
+        .products-section {
+            background: var(--light-bg);
+            padding: 5rem 0;
+        }
+
+        .products-carousel {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .product-slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 3rem;
+            gap: 3rem;
+        }
+
+        .product-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            animation: imageShine 3s ease-in-out infinite;
+        }
+
+        @keyframes imageShine {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .product-info p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+            pointer-events: none;
+        }
+
+        .carousel-btn {
+            background: rgba(0, 180, 216, 0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            pointer-events: all;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 180, 216, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--primary-color);
+            transform: scale(1.3);
+        }
+
+        /* 客户案例 */
+        .testimonials-section {
+            background: white;
+            padding: 5rem 0;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(0, 180, 216, 0.05), rgba(0, 245, 255, 0.05));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 180, 216, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 180, 216, 0.1);
+        }
+
+        .quote-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-content p {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info span {
+            color: var(--text-light);
+            font-size: 0.9rem;
         }
 
         /* 科技展示区 */
@@ -588,6 +906,29 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+
+            .product-slide {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .image-placeholder {
+                width: 250px;
+                height: 250px;
+            }
+
+            .product-info h3 {
+                font-size: 2rem;
+            }
+
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-controls {
+                padding: 0 2rem;
+            }
         }
 
         /* 滚动条样式 */
@@ -626,6 +967,7 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="particles" id="particles"></div>
         <div class="hero-content">
             <div class="hero-text">
                 <h1>智慧供应链 · 新鲜每一天</h1>
@@ -714,6 +1056,151 @@
                 </div>
                 <h3>客户服务</h3>
                 <p>7x24小时专业客服团队，及时响应客户需求，提供贴心的售前售后服务。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品展示轮播 -->
+    <section class="products-section">
+        <div class="section-title">
+            <h2>产品展示</h2>
+            <p>新鲜优质的生鲜产品，从农场到餐桌的品质保证</p>
+        </div>
+        <div class="products-carousel">
+            <div class="carousel-container">
+                <div class="carousel-track" id="carousel-track">
+                    <div class="product-slide">
+                        <div class="product-image">
+                            <div class="image-placeholder" style="background: linear-gradient(45deg, #ff6b35, #f7931e);">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>新鲜水果</h3>
+                            <p>精选优质水果，严格品控标准</p>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-image">
+                            <div class="image-placeholder" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>有机蔬菜</h3>
+                            <p>绿色有机蔬菜，健康营养选择</p>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-image">
+                            <div class="image-placeholder" style="background: linear-gradient(45deg, #6c5ce7, #a29bfe);">
+                                <i class="fas fa-fish"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>海鲜水产</h3>
+                            <p>新鲜海鲜，冷链运输保鲜</p>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-image">
+                            <div class="image-placeholder" style="background: linear-gradient(45deg, #fd79a8, #fdcb6e);">
+                                <i class="fas fa-drumstick-bite"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>优质肉类</h3>
+                            <p>精选肉类产品，安全可追溯</p>
+                        </div>
+                    </div>
+                    <div class="product-slide">
+                        <div class="product-image">
+                            <div class="image-placeholder" style="background: linear-gradient(45deg, #00b4d8, #90e0ef);">
+                                <i class="fas fa-cookie-bite"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3>烘焙食品</h3>
+                            <p>新鲜烘焙，每日配送</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn prev-btn" id="prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next-btn" id="next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active" data-slide="0"></span>
+                <span class="indicator" data-slide="1"></span>
+                <span class="indicator" data-slide="2"></span>
+                <span class="indicator" data-slide="3"></span>
+                <span class="indicator" data-slide="4"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户案例 -->
+    <section class="testimonials-section">
+        <div class="section-title">
+            <h2>客户案例</h2>
+            <p>信赖我们的合作伙伴遍布各行各业</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"乐谷儿的供应链服务非常专业，产品新鲜度和配送时效都达到了我们的要求，是值得信赖的合作伙伴。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>张经理</h4>
+                            <span>某连锁餐饮企业</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"数字化的管理系统让我们的采购更加透明高效，成本控制效果显著，强烈推荐乐谷儿的服务。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>李总</h4>
+                            <span>大型超市连锁</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"从合作开始到现在，乐谷儿的服务一直很稳定，产品质量有保障，团队响应速度很快。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>王主管</h4>
+                            <span>食品加工企业</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -829,12 +1316,79 @@
             }
         });
 
+        // 创建粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 轮播功能
+        class ProductCarousel {
+            constructor() {
+                this.track = document.getElementById('carousel-track');
+                this.slides = document.querySelectorAll('.product-slide');
+                this.nextBtn = document.getElementById('next-btn');
+                this.prevBtn = document.getElementById('prev-btn');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                
+                this.init();
+            }
+
+            init() {
+                this.nextBtn.addEventListener('click', () => this.nextSlide());
+                this.prevBtn.addEventListener('click', () => this.prevSlide());
+                
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+
+                // 自动轮播
+                setInterval(() => this.nextSlide(), 5000);
+            }
+
+            updateCarousel() {
+                const translateX = -this.currentSlide * 100;
+                this.track.style.transform = `translateX(${translateX}%)`;
+                
+                // 更新指示器
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateCarousel();
+            }
+
+            goToSlide(index) {
+                this.currentSlide = index;
+                this.updateCarousel();
+            }
+        }
+
         // 数字动画
         function animateNumbers() {
             const numbers = document.querySelectorAll('.stat-number');
             
             numbers.forEach(number => {
-                const target = parseInt(number.getAttribute('data-target'));
+                const target = parseFloat(number.getAttribute('data-target'));
                 const increment = target / 100;
                 let current = 0;
                 
@@ -864,13 +1418,41 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateNumbers();
+                    if (entry.target.classList.contains('stats-section')) {
+                        animateNumbers();
+                    }
                     observer.unobserve(entry.target);
                 }
             });
-        });
+        }, { threshold: 0.5 });
 
-        observer.observe(document.querySelector('.stats-section'));
+        // 监听多个区域
+        document.addEventListener('DOMContentLoaded', function() {
+            observer.observe(document.querySelector('.stats-section'));
+            
+            // 监听服务卡片和推荐卡片的动画
+            const animatedElements = document.querySelectorAll('.service-card, .testimonial-card');
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.transform = 'translateY(30px)';
+                        entry.target.style.transition = 'all 0.6s ease';
+                        
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }, 100);
+                        
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            animatedElements.forEach(element => {
+                cardObserver.observe(element);
+            });
+        });
 
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -887,18 +1469,84 @@
         });
 
         // 表单提交
-        document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('感谢您的咨询，我们将尽快与您联系！');
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // 添加提交动画
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> 提交成功';
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            form.reset();
+                        }, 2000);
+                    }, 1500);
+                    
+                    alert('感谢您的咨询，我们将尽快与您联系！');
+                });
+            }
         });
 
-        // 页面加载动画
+        // 页面加载时初始化
         window.addEventListener('load', function() {
+            createParticles();
+            new ProductCarousel();
+            
+            // 添加加载动画
             const elements = document.querySelectorAll('.service-card, .stat-item');
             elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
                 setTimeout(() => {
-                    element.classList.add('fade-in-up');
+                    element.style.transition = 'all 0.6s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
                 }, index * 100);
+            });
+
+            // 添加滚动视差效果
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.tech-visual');
+                
+                parallaxElements.forEach(element => {
+                    const speed = 0.5;
+                    const offset = scrolled * speed;
+                    element.style.transform = `translateY(${offset}px)`;
+                });
+            });
+        });
+
+        // 添加鼠标悬停3D效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.service-card, .testimonial-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = -(x - centerX) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                });
             });
         });
     </script>
